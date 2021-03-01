@@ -1,0 +1,353 @@
+\documentclass[12pt]{article}
+%\usepackage{natbib}
+\usepackage[french]{babel}
+\usepackage{url}
+\usepackage[utf8x]{inputenc}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{vmargin}
+\usepackage{xcolor}
+\usepackage{bbm}
+\usepackage{amsmath,amssymb}
+\usepackage{amsthm}
+\usepackage{dsfont}
+\usepackage{stmaryrd}
+\usepackage{systeme}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{pifont}
+\usepackage{textcomp}
+
+\title{Nombres algébriques et résultant}
+\author{CARVAILLO T.}
+\date{\today}
+
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\theauthor}
+\lhead{\thetitle}
+\cfoot{\thepage}
+\def\dotfill#1{\cleaders\hbox to #1{.}\hfill}
+\newcommand\dotline[2][.5em]{\leavevmode\hbox to #2{\dotfill{#1}\hfil}}
+
+\newcommand{\jL}{\mathbbm{L}}
+\newcommand{\Z}{\mathbbm{Z}}
+\newcommand{\Q}{\mathbbm{Q}}
+\newcommand{\R}{\mathbbm{R}}
+\newcommand{\C}{\mathbbm{C}}
+\newcommand{\K}{\mathbbm{K}}
+\newcommand{\F}{\mathbbm{F}}
+\newcommand{\Fq}{\mathbbm{F}_q}
+
+%définition commande présentation fonction
+\newcommand{\fonction}[5]{
+\begin{displaymath}
+\begin{array}{l|rcl}
+\displaystyle
+#1 : & #2 & \longrightarrow & #3 \\
+    & #4 & \longmapsto & #5
+\end{array}
+\end{displaymath}
+}
+%fin définition
+
+% de jolies accolades
+\newcommand{\accolade}[2]{
+\begin{displaymath}
+%#1 = \left\{
+    \begin{array}{ll}
+       #1 %& \mbox{si }
+       #2 %& \mbox{sinon.}
+    \end{array}
+\right.
+\end{displaymath}
+}
+% de jolies accolades
+
+
+
+
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Théorème}
+\newtheorem{cor}{Corollaire}
+\newtheorem{lem}{Lemme}
+\theoremstyle{definition}\newtheorem{defn}{Définition}
+\theoremstyle{definition}\newtheorem{exm}{Exemple}
+\theoremstyle{definition}\newtheorem{rem}{Remarque}
+\theoremstyle{remark}\newtheorem{exo}{Exercice}
+\theoremstyle{remark}\newtheorem{nota}{Notation}
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+	\centering
+    \vspace*{0.5 cm}
+    \textsc{\LARGE Projet de Calcul Formel}\\[1.0 cm]
+	\vspace{1.5cm}
+	\rule{\linewidth}{0.2 mm} \\[0.4 cm]
+	{ \huge \bfseries  \thetitle}\\ %\color{blue}
+	\rule{\linewidth}{0.2 mm} \\[1.5 cm]
+	
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushleft} \large
+			\emph{A l'attention de :}\\
+			NOM PROFS ??\\
+			\phantom{a}\\
+			\phantom{a}\\
+		\end{flushleft}
+	\end{minipage}
+	\begin{minipage}{0.5\textwidth}
+    	\begin{flushright} \large
+		\emph{Rédigé par :}\\
+		CARVAILLO Thomas \\
+		\end{flushright}
+	\end{minipage}\\[2 cm]
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+
+%\section*{\Huge Notation}
+%\vspace{3cm}
+%\begin{tabular}{p{4cm}p{15cm}}
+%$\mathbbm{F}_q$ & Corps de \textit{Galois} à $q$ éléments.\\
+%$\mathbbm{F}_q$* & Ensemble des éléments inversibles de $\mathbbm{F}_q$\\
+%\end{tabular}
+%\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Introduction}
+\addcontentsline{toc}{part}{Introduction}
+\begin{figure}[h]
+Intro
+\end{figure}
+
+\vfill \eject
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagebreak 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Un peu de théorie}
+
+
+\subsection{Rappels}
+
+\begin{defn}
+On appelle corps tout anneau $A$ abélien unitaire dans lequel tout élément non nul est inversible, i.e. $A^{\times} = A \backslash\{0\}$.
+\end{defn}
+
+\begin{nota}
+Dans ce qui suit, le corps de base sera noté $\K$ et désignera indifféremment, sauf indication contraire, $\Q$, $\R$ ou $\C$. 
+\end{nota}
+
+\begin{defn}
+On appelle extension de $\K$ tout corps $\jL$ contenant un sous-corps isomorphe à $\K$. On notera $\jL / \K$ une telle extension.
+\end{defn}
+
+\begin{defn}
+On appelle degré de l'extension $\jL / \K$ la dimension de $\jL$ en tant que $\K$-espace vectoriel. On le notera $[\jL : \K]$.
+\end{defn}
+
+\begin{prop}
+multiplicativité du degré.
+\end{prop}
+
+\begin{defn}
+On dit que $\jL / \K$ est finie si elle est de degré finie.
+\end{defn}
+
+\begin{prop}
+L'ensemble $\K[X]$ des polynômes à coefficients dans $\K$ en l'indéterminée $X$ est muni d'une structure d'anneau Euclidien.
+\end{prop}
+
+
+\subsection{Eléments algébriques}
+
+\begin{defn}
+Soient $\jL/\K$ une extension de corps et $P(X) = \displaystyle\sum_{i=0}^{n}a_iX^i$ un polynôme de degré $n$ à coefficients dans $\K$. On considère le morphisme d'évaluation \fonction{ev_\alpha}{\K[X]}{\jL}{P(X)}{P(\alpha)}
+Soit $I(\alpha) :=  ker(ev_\alpha) = \{ P \in \K[X]$ tels que $P(\alpha) = 0\}$; on a deux possibilites:
+
+\begin{itemize}
+	\item Soit $I(\alpha) \ne \{ 0 \}$, i.e. $ev_a$ n'est pas injective et donc $\exists P \in \K[X]\backslash\{0\}$ tel que $P(\alpha) = 0$. \newline
+Dans ce cas $\alpha$ est dit algébrique sur $\K$.
+	\item Soit $I(\alpha) = \{ 0 \}$ i.e. $ev_a$ est injective et donc $\nexists P \in \K[X]\backslash\{0\}$ tel que $P(\alpha) = 0$. \newline
+Dans ce cas, $\alpha$ est dit transcendant sur $\K$.
+\end{itemize}
+\end{defn}
+
+
+\begin{thm}
+Soit $\jL / \K$ une extension de corps et $\alpha$ un élément algébrique sur $\jL$, alors il existe un unique polynôme $P(X)$ unitaire irréductible dans $\K[X]$ vérifiant
+\begin{center} ($Q(X) \in \K[X]\backslash\{0\}$ et $Q(\alpha)=0$) ssi $P(X) \mid Q(X)$\end{center}
+\end{thm}
+
+\begin{proof}
+$\K[X]$ est euclidien, donc en particulier principal. Il s'ensuit qu'il existe $P(X) \in \K[X]\backslash\{0\}$ unitaire tel que $I(a) = (P(X))$, $I(a)$ étant un idéal propre non nul. Par le premier théorème d'isomorphisme, on obtient que $Im(ev_\alpha) \simeq \frac{\K[X]}{(P(X))}$. \newline
+Ce dernier étant intègre, on obtient que $P(X)$ est premier donc irréductible dans $\K[X]$ factoriel. \newline
+Il s'ensuit naturellement que $Q(X) \in I(a)\backslash\{0\} = (P(X))\backslash\{0\}$ ssi $P(X) \mid Q(X)$.
+\end{proof}
+
+\begin{prop}[Admise]
+On a de plus $deg(P) = [\jL : \K]$.
+\end{prop}
+
+\begin{defn}
+Le polynôme $P(X)$ comme décrit ci-dessus est appellé le polynôme minimal de $\alpha$ sur $\K$ et est noté $Irr(\alpha,X,\K)$.
+\end{defn}
+
+\begin{prop}[Critère d'Eiseinstein - Admis]
+Soit $P(X) = \displaystyle \sum_{i=0}^{n}a_iX^i$ un polynôme de $\Z[X]$, supposons de plus qu'il existe $p$ premier tel que $\forall i \in \llbracket 0, n-1 \rrbracket$
+\begin{itemize}
+	\item $p \mid a_i$, 
+	\item $p \nmid a_n$
+	\item $p^2 \nmid a_0$
+\end{itemize}
+alors $P(X)$ est irréductible dans $\Q[X]$.
+\end{prop}
+
+\begin{exm}
+racine de 2
+\end{exm}
+
+\begin{defn}
+Soit $\jL / \K$ une extension. On appelle fermeture algébrique de $\K$ dans $\jL$ l'ensemble des éléments de $\jL$ algébriques sur $\K$.
+\end{defn}
+
+\begin{defn}
+On dit que $\jL / \K$ est algébrique si tout élément de $\jL$ est algébrique sur $\K$.
+\end{defn}
+
+\begin{prop}[Admise]
+Une extension finie est algébrique.
+\end{prop}
+
+\begin{nota}
+On notera $\K(\alpha_1, ..., \alpha_n)$ le plus petit corps, au sens de l'inclusion, contenant $\K$, $\alpha_1$, ..., $\alpha_n$.
+\end{nota}
+
+\begin{thm}
+Soit $\jL/\K$ une extension de corps et soient $\alpha$ et $\beta$ deux éléments de $\jL$ non nuls algébriques sur $\K$. Alors, $\alpha + \beta$, $\alpha.\beta$ et $\alpha^{-1}$ sont algébriques sur $\K$. En d'autres termes, la fermeture algébrique de $\K$ est une extension de $\K$.
+\end{thm}
+
+\begin{proof}
+Nous allons donner ici une première preuve non constructive. $\K(\alpha)/\K$ et $\K(\beta)/\K$ sont finies et $[\K(\alpha, \beta) : \K] = [\K(\alpha, \beta) : \K(\alpha)].[\K(\alpha) : \K]$ \newline
+De plus, on a $K\subseteq \K(\alpha) \subseteq \K(\alpha,\beta)$ et $ \K\subseteq \K(\beta) \subseteq \K(\alpha,\beta)$ donc 
+\begin{center}
+$deg(Irr(\beta,X,\K(\alpha))) \le deg(Irr(\beta,X,\K))$
+\end{center}
+d'où 
+\begin{center}
+$[\K(\alpha,\beta) : \K] \le [\K(\beta) : \K].[\K(\alpha) : \K] < \infty$
+\end{center}
+Donc  $[\K(\alpha, \beta) : \K]$ est fini et l'extension est algébrique. Il s'ensuit naturellement que $\alpha + \beta$, $\alpha.\beta$ et $\alpha^{-1}$ sont algébriques, car contenus dans $\K(\alpha, \beta)$.
+\end{proof}
+
+
+\subsection{Résultants}
+
+Introduisons maintenant une notion fondamentale, celle de \textit{résultant}, qui va nous permettre de donner une seconde démonstration - cette fois ci constructrice - du dernier théorème.
+
+\begin{defn}
+Soient $A = \displaystyle\sum_{i=0}^n a_iX^i$ et $B = \displaystyle\sum_{i=0}^m b_iX^i$ deux polynômes de $\K[X]$. On appelle matrice de Sylvester de $P$ et $Q$ la matrice de taille $(m+n)\times(m+n)$ définit par :
+\begin{center}
+$$\begin{array}{cc} 
+Syl(A,B) :=
+   \begin{pmatrix} 
+a_n & a_{n-1} & \cdots & a_1 & a_0 & 0 & \cdots & 0 \\
+0 & a_n & \cdots & a_2 & a_1	 & a_0 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots\\
+0 & 0 & \cdots & a_n & a_{n-1} & a_{n-2} & \cdots & a_0 \\
+b_m & b_{m-1} & \cdots & b_1 & b_0 & 0 & \cdots & 0 \\
+0 & b_m & \cdots & b_2 & b_1	 & b_0 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots\\
+0 & 0 & \cdots & b_m & b_{m-1} & b_{m-2} & \cdots & b_0 \\
+   \end{pmatrix} 
+&  \begin{array}{c} 
+      \left. \rule{0pt}{12mm} \right\} \text{m} \\
+      \left. \rule{0pt}{12mm} \right\} \text{n} 
+   \end{array} 
+\end{array}$$
+\end{center}
+\end{defn}
+
+\begin{defn}
+On appelle résultant de $A$ et $B$ le déterminant de la matrice de Sylvester de $A$ et $B$:
+\begin{center} $Res(A,B) := det(Syl(A,B))$ \end{center}
+\end{defn}
+
+\begin{thm}[Admis]
+Soient $A$ et $B \in \K[X]$, alors $Res(A,B) = 0$ ssi $P$ et $Q$ ont un facteur commun non constant dans $\K[X]$.
+\end{thm}
+
+\begin{nota}
+On notera $Res_X(A,B)$ le résultant de deux polynôme en la variable $X$ à coefficient dans $\K[Y]$.
+\end{nota}
+
+Nous allons maintenant considérer $\alpha$ et $\beta$ deux éléments de $\jL$ algébriques sur $\K$. On notera respectivement leur polynômes minimaux $A(X)$ et $B(X)$ $\in \K[X]$, avec $deg(A) = n$ et $deg(B) = m$. L'objectif est de constuire un polynôme annulateur (et non forcément minimal !) de $\alpha + \beta$, $\alpha.\beta$ et $\alpha^{-1}$ afin de donner une preuve constructive du \textit{Théorème 2}.
+
+\begin{prop}
+La fermeture algébrique de $\K$ dans $\jL$ est munie d'une structure d'anneau; en effet
+	\begin{enumerate}[label=\roman*)]
+		\item Le polynôme $S(X) := Res_Y(A(Y),B(Y-X))$ est \textit{un} polynôme annulateur de $\alpha + \beta$.
+		\item Le polynôme $P(X) := Res_Y(A(Y), X^m.B(\frac{X}{Y}))$ est \textit{un} polynôme annulateur de $\alpha.\beta$.
+	\end{enumerate}
+\end{prop}
+
+\begin{proof} De simples calculs suffisent, remarquons que
+	\begin{enumerate}[label=\roman*)]
+		\item $S(\alpha + \beta) = Res_Y(A(Y),B(Y-\alpha + \beta))$. Or, $A(\alpha) = 0$ et $B (\alpha-\alpha + \beta) = B(\beta) = 0$. Donc les polynômes $A(Y)$ et $B (Y-\alpha + \beta) \in \K[Y]$ admettent $\alpha$ comme racine commune. De part le théorème précédent, on obtient que $S(\alpha + \beta) = Res_Y(A(Y),B(Y-\alpha + \beta)) = 0$, la conclusion s'ensuit. 
+		\item De manière similaire, $P(\alpha.\beta) = Res_Y(A(Y), (\alpha.\beta)^m.B(\frac{\alpha.\beta}{Y}))$. Or, $A(\alpha) = 0$ et $(\alpha.\beta)^m.B(\frac{\alpha.\beta}{\alpha}) = (\alpha.\beta)^m.B(\beta) = 0$ Le terme $(\alpha.\beta)^m$ est nécessaire lorsque $\alpha = 0$. La conclusion s'ensuit.
+	\end{enumerate}
+\end{proof}
+Et finalement :
+\begin{prop}
+La fermeture algébrique de $\K$ dans $\jL$ est munie d'une structure de corps; en effet le polynôme $I(X) := X^n.A(1/X)$ est un polynôme annulateur de $\alpha^{-1}$.
+\end{prop}
+
+\begin{proof}
+$I(\alpha^{-1}) = ((\alpha^{-1})^n).A(\alpha^{-1}) = \alpha^{-n}.\displaystyle\sum a_i(\alpha^{-1})^i $
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagebreak
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Du code}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagebreak
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Des exemples}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagebreak
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\addcontentsline{toc}{part}{Références}
+
+%\begin{thebibliography}{9}
+	%\bibitem{these1}
+	%Référence 1
+%\end{thebibliography}
+
+\end{document}
