@@ -46,6 +46,7 @@
 \newcommand{\K}{\mathbbm{K}}
 \newcommand{\F}{\mathbbm{F}}
 \newcommand{\Fq}{\mathbbm{F}_q}
+\newcommand{\Fqn}{\mathbbm{F}_{q^n}}
 
 %définition commande présentation fonction
 \newcommand{\fonction}[5]{
@@ -82,6 +83,7 @@
 \theoremstyle{definition}\newtheorem{defn}{Définition}
 \theoremstyle{definition}\newtheorem{exm}{Exemple}
 \theoremstyle{definition}\newtheorem{rem}{Remarque}
+\theoremstyle{definition}\newtheorem{algo}{Algorithme}
 \theoremstyle{remark}\newtheorem{exo}{Exercice}
 \theoremstyle{remark}\newtheorem{nota}{Notation}
 
@@ -111,6 +113,8 @@
     	\begin{flushright} \large
 		\emph{Rédigé par :}\\
 		CARVAILLO Thomas \\
+		JACQUET Raphael \\
+		PIARD Arthur
 		\end{flushright}
 	\end{minipage}\\[2 cm]
 \end{titlepage}
@@ -209,6 +213,10 @@ On a de plus $deg(P) = [\jL : \K]$.
 Le polynôme $P(X)$ comme décrit ci-dessus est appellé le polynôme minimal de $\alpha$ sur $\K$ et est noté $Irr(\alpha,X,\K)$.
 \end{defn}
 
+\begin{rem}
+Soit $\alpha \in \Q$, il peut être intéressant de remarquer qu'un polynôme irréductible dans $\Q[X]$ annulant $\alpha$ sera son toujours son polynôme minimal sur $\Q$. Cela découle de ce qui a été vu plus haut.
+\end{rem}
+
 \begin{prop}[Critère d'Eiseinstein - Admis]
 Soit $P(X) = \displaystyle \sum_{i=0}^{n}a_iX^i$ un polynôme de $\Z[X]$, supposons de plus qu'il existe $p$ premier tel que $\forall i \in \llbracket 0, n-1 \rrbracket$
 \begin{itemize}
@@ -220,7 +228,11 @@ alors $P(X)$ est irréductible dans $\Q[X]$.
 \end{prop}
 
 \begin{exm}
-racine de 2
+	\begin{itemize} Voyons quelques cas triviaux:
+		\item $i$ est algébrique sur $\Q$, en effet $X^2-1$ est son polynôme minimal sur $Q$.
+		\item $\sqrt2$ et $\sqrt3$ sont algébrique sur $\Q$, de polynôme minimaux respectif $X^2 -2$ et $X^2-3$, dont l'irréductibilité découle du critère d'Eisenstein.
+		\item $\alpha = \sqrt2 + \sqrt3$ est également algébrique sur $\Q$. En effet, $\alpha = \sqrt2 + \sqrt3$ ssi $(\alpha-\sqrt2)^2= 3$ ssi $\alpha^2 + 2\alpha\sqrt2 + 2 = 3$ ssi $\alpha^2 - 1 =  -2\alpha\sqrt2$ ssi $\alpha^4 - 2\alpha^2 +1 =  8\alpha^2$ ssi $\alpha^4 - 10\alpha^2 +1 = 0$. $\alpha$ admet donc pour polynôme minimal $X^4 -10X^2 +1$. L'irréductibilité découle de Eisenstein pour $p=2$.	
+	\end{itemize}
 \end{exm}
 
 \begin{defn}
@@ -290,11 +302,11 @@ On appelle résultant de $A$ et $B$ le déterminant de la matrice de Sylvester d
 \end{defn}
 
 \begin{thm}[Admis]
-Soient $A$ et $B \in \K[X]$, alors $Res(A,B) = 0$ ssi $P$ et $Q$ ont un facteur commun non constant dans $\K[X]$.
+Soient $A$ et $B \in \K[X]$, alors $Res(A,B) = 0$ ssi $A$ et $B$ ont un facteur commun non constant dans $\K[X]$.
 \end{thm}
 
 \begin{nota}
-On notera $Res_X(A,B)$ le résultant de deux polynôme en la variable $X$ à coefficient dans $\K[Y]$.
+On notera $Res_Y(A,B)$ le résultant de deux polynôme en la variable $Y$ à coefficient dans $\K[X]$.
 \end{nota}
 
 Nous allons maintenant considérer $\alpha$ et $\beta$ deux éléments de $\jL$ algébriques sur $\K$. On notera respectivement leur polynômes minimaux $A(X)$ et $B(X)$ $\in \K[X]$, avec $deg(A) = n$ et $deg(B) = m$. L'objectif est de constuire un polynôme annulateur (et non forcément minimal !) de $\alpha + \beta$, $\alpha.\beta$ et $\alpha^{-1}$ afin de donner une preuve constructive du \textit{Théorème 2}.
@@ -302,25 +314,83 @@ Nous allons maintenant considérer $\alpha$ et $\beta$ deux éléments de $\jL$ 
 \begin{prop}
 La fermeture algébrique de $\K$ dans $\jL$ est munie d'une structure d'anneau; en effet
 	\begin{enumerate}[label=\roman*)]
-		\item Le polynôme $S(X) := Res_Y(A(Y),B(Y-X))$ est \textit{un} polynôme annulateur de $\alpha + \beta$.
+		\item Le polynôme $S(X) := Res_Y(A(Y),B(X-Y))$ est \textit{un} polynôme annulateur de $\alpha + \beta$.
 		\item Le polynôme $P(X) := Res_Y(A(Y), X^m.B(\frac{X}{Y}))$ est \textit{un} polynôme annulateur de $\alpha.\beta$.
 	\end{enumerate}
 \end{prop}
 
 \begin{proof} De simples calculs suffisent, remarquons que
 	\begin{enumerate}[label=\roman*)]
-		\item $S(\alpha + \beta) = Res_Y(A(Y),B(Y-\alpha + \beta))$. Or, $A(\alpha) = 0$ et $B (\alpha-\alpha + \beta) = B(\beta) = 0$. Donc les polynômes $A(Y)$ et $B (Y-\alpha + \beta) \in \K[Y]$ admettent $\alpha$ comme racine commune. De part le théorème précédent, on obtient que $S(\alpha + \beta) = Res_Y(A(Y),B(Y-\alpha + \beta)) = 0$, la conclusion s'ensuit. 
+		\item $S(\alpha + \beta) = Res_Y(A(Y),B(\alpha + \beta - Y))$. Or, $A(\alpha) = 0$ et $B (\alpha-\alpha + \beta) = B(\beta) = 0$. Donc les polynômes $A(Y)$ et $B (\alpha + \beta - Y) \in \K[Y]$ admettent $\alpha$ comme racine commune. De part le théorème précédent, on obtient que $S(\alpha + \beta) = Res_Y(A(Y),B(\alpha + \beta-Y)) = 0$, la conclusion s'ensuit. 
 		\item De manière similaire, $P(\alpha.\beta) = Res_Y(A(Y), (\alpha.\beta)^m.B(\frac{\alpha.\beta}{Y}))$. Or, $A(\alpha) = 0$ et $(\alpha.\beta)^m.B(\frac{\alpha.\beta}{\alpha}) = (\alpha.\beta)^m.B(\beta) = 0$ Le terme $(\alpha.\beta)^m$ est nécessaire lorsque $\alpha = 0$. La conclusion s'ensuit.
 	\end{enumerate}
 \end{proof}
 Et finalement :
 \begin{prop}
-La fermeture algébrique de $\K$ dans $\jL$ est munie d'une structure de corps; en effet le polynôme $I(X) := X^n.A(1/X)$ est un polynôme annulateur de $\alpha^{-1}$.
+La fermeture algébrique de $\K$ dans $\jL$ est munie d'une structure de corps; en effet le polynôme $P(X) := X^n.A(1/X)$ est un polynôme annulateur de $\alpha^{-1}$.
 \end{prop}
 
 \begin{proof}
-$I(\alpha^{-1}) = ((\alpha^{-1})^n).A(\alpha^{-1}) = \alpha^{-n}.\displaystyle\sum a_i(\alpha^{-1})^i $
+Une fois de plus, un simple calcul suffit: \newline
+$P(\alpha^{-1}) = ((\alpha^{-1})^n).A(\alpha^{-1}) = \alpha^{-n}.\displaystyle\sum_{i=0}^n (\frac{a_i}{\alpha^{-1}})^i = \alpha^{-n}.\sum_{i=0}^n \alpha^i.a_i = \alpha^{-n}.P(\alpha) = 0$
 \end{proof}
+
+\begin{exm}
+Nous avons précedemment vu que le polynôme minimal de $\alpha = \sqrt2 + \sqrt3$ est $X^4 -10X^2 +1$. Retrouvons ce résultat grâce à la théorie des résultants. Soient $A$ et $B$ les polynômes minimaux de $\sqrt2$ et $\sqrt3$. Construisons $Syl(A(Y), B(Y-X))$. On a $B(Y-X) = (Y-X)^2 -3 = Y^2 + (-2X)Y + (X^2+3)$ d'où
+
+\begin{center}
+$Syl(A(Y), B(Y-X)) =$
+$
+   \begin{pmatrix} 
+1 & 0 & -2 & 0 \\
+0 & 1 & 0 & -2 \\
+1 & -2X & X^2 +3 & 0 \\
+0 & 1 & -2X & X^2 +3 \\
+   \end{pmatrix} 
+$
+\end{center}
+
+et donc
+
+			\begin{center} $Res_Y((A(Y), B(Y-X))$ \end{center}
+			\begin{align*} 
+&= \begin{vmatrix} 1 & 0 & -2 & 0 \\ 0 & 1 & 0 & -2 \\ 1 & -2X & X^2 - 3 & 0 \\ 0 & 1 & -2X & X^2 -3 \\\end{vmatrix}  \\
+&= Maple ! \\
+&= X^4 -10X^2 +1 
+			\end{align*} 
+Ce qui correspond au polynôme minimal trouvé lors du précédent exemple. Nous avons ici obtenu un polynôme annulateur qui est \textit{le} polynôme minimal, mais ce ne sera pas toujorus le cas.
+\end{exm}
+
+\subsection{Brève disgression sur les corps finis}
+
+On va ici s'interresser au cas particulier des corps finis.
+
+\begin{nota}
+On dénotera par $q := p^n$ la puissance n-ième d'un nombre premier $p$.
+\end{nota}
+
+\begin{prop}
+Pour tout $p$ premier, il existe un corps fini à $p^n$ éléments, unique à isomorphisme près, qui sera noter $\Fq$.
+\end{prop}
+
+Contrairement au cas où le corps plancher est $\Q$, nous disposons d'algorithmes de construction de polynômes minimaux efficace. 
+
+\begin{prop}
+Soient $P$ un polynôme de degré $n$ à coefficients dans $\Fq$, et $\alpha$ une racine de $P$ dans $\Fqn$. Alors $P$ admet $n$ racines (distinctes !) dans $\Fqn$, qui ne sont autre que les $\alpha^{q^i}$, où $i$ décrit $\{1, ..., n-1\}$.
+\end{prop}
+
+\begin{defn}
+Soit $\alpha$ un élement algébrique de degré $n$ sur $\Fq$. On appelle conjugués de $\alpha$ sur $\Fqn$ les racines de son polynôme minimal, i.e. les $\alpha^{q^i}$, où $i$ décrit $\{1, ..., n-1\}$.
+\end{defn}
+
+Il nous est maintenant facile de constuire le polynôme minimal (dans $\Fqn$ !) de $\alpha \in \Fq$.
+
+\begin{algo}[Méthode des conjugués]
+Soit $\alpha \in \Fqn$, on calcule les puissances successive de $\alpha^{q}$ jusqu'à trouver le plus petit entier $m$ tel que $\alpha^{q^m} = \alpha$. On obtient aisni que $\alpha$ est algébrique de degré $m$ et 
+\begin{center} $Irr(\alpha, \Fq, X) = \displaystyle \prod_{i=0}^m (X-\alpha^{q^i})$. \end{center}
+\end{algo}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak
