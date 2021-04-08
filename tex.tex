@@ -95,16 +95,23 @@
 \begin{titlepage}
 	\centering
     \vspace*{0.5 cm}
-    \textsc{\LARGE Projet de Calcul Formel}\\[1.0 cm]
+    \textsc{\LARGE Projet de Calcul Formel.\\
+    \vspace{12pt}
+2020-2021}\\[1.0 cm]
+    \dotline[15pt]{15cm}\\
+	\includegraphics[scale = 2.2]{logo.png}
+	\dotline[15pt]{15cm}\\
 	\vspace{1.5cm}
+	\textsc{\Large Faculté des Sciences et Techniques}\\
+	\textsc{\large Master 1 - Maths. CRYPTIS}\\[1.0 cm]
 	\rule{\linewidth}{0.2 mm} \\[0.4 cm]
-	{ \huge \bfseries  \thetitle}\\ %\color{blue}
+	{ \huge \bfseries \color{blue} \thetitle}\\
 	\rule{\linewidth}{0.2 mm} \\[1.5 cm]
 	
 	\begin{minipage}{0.4\textwidth}
 		\begin{flushleft} \large
 			\emph{A l'attention de :}\\
-			NOM PROFS ??\\
+			PROF DE CF\\
 			\phantom{a}\\
 			\phantom{a}\\
 		\end{flushleft}
@@ -112,9 +119,9 @@
 	\begin{minipage}{0.5\textwidth}
     	\begin{flushright} \large
 		\emph{Rédigé par :}\\
-		CARVAILLO Thomas \\
-		JACQUET Raphael \\
-		PIARD Arthur
+		PIARD A.\\
+		JACQUET R.\\
+		CARVAILLO T.\\
 		\end{flushright}
 	\end{minipage}\\[2 cm]
 \end{titlepage}
@@ -135,7 +142,11 @@
 \section*{Introduction}
 \addcontentsline{toc}{part}{Introduction}
 \begin{figure}[h]
-Intro
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et eleifend erat, eu aliquam elit. Etiam eu viverra est. Proin sed diam vel orci vehicula egestas. In facilisis scelerisque elit. Integer et hendrerit quam, sed pellentesque velit. Nullam pellentesque dui ac luctus rhoncus. Duis fringilla dapibus lorem in hendrerit. Duis efficitur fringilla consequat. Quisque viverra purus ac nibh tristique iaculis. Donec euismod diam sem, quis sagittis lacus volutpat sit amet. Sed nec ultricies eros. Suspendisse ullamcorper est ut sapien ultrices, in sodales massa tempus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dignissim dapibus ultrices.\\
+
+Nunc hendrerit, erat bibendum pharetra pellentesque, risus nulla congue lorem, et lobortis libero magna quis ligula. Praesent et elementum nulla. In hac habitasse platea dictumst. Nulla dignissim nibh sodales nulla tristique condimentum. Nam luctus urna ac ligula scelerisque, non euismod ante pulvinar. Vivamus luctus tellus quis viverra laoreet. Proin vel iaculis libero. Sed tempor massa urna, non rhoncus urna pulvinar nec. Sed ut condimentum sem. Maecenas ac dolor metus. Sed eu luctus arcu.\\
+
+Mauris tempor mauris diam, et porttitor tortor mollis sit amet. Maecenas dui neque, imperdiet egestas posuere at, ornare vitae ligula. Fusce scelerisque dictum consequat. Etiam nec tempus nisi. Morbi scelerisque sapien augue, nec placerat ex mollis id. Donec sit amet nibh ut mi condimentum malesuada. Donec sit amet felis varius, lobortis lacus vitae, bibendum justo. Curabitur lacinia lectus ac lacinia porta. Donec elit ante, pulvinar aliquam dolor ac, ullamcorper suscipit erat. Curabitur dignissim, tortor a mollis cursus, risus sapien aliquam risus, at lobortis urna tellus at lectus. Etiam in luctus nibh. Praesent maximus orci turpis, sed tincidunt mauris aliquam id. Duis eu interdum tellus. Pellentesque nibh tellus, varius eget diam ac, viverra faucibus tellus.
 \end{figure}
 
 \vfill \eject
@@ -151,7 +162,7 @@ Intro
 \subsection{Rappels}
 
 \begin{defn}
-On appelle corps tout anneau $A$ abélien unitaire dans lequel tout élément non nul est inversible, i.e. $A^{\times} = A \backslash\{0\}$.
+On appelle corps tout anneau $A$ abélien unitaire dans lequel tout élément non nul est inversible, i.e. $A^{\times} = A  - \{0\}$.
 \end{defn}
 
 \begin{nota}
@@ -167,7 +178,7 @@ On appelle degré de l'extension $\jL / \K$ la dimension de $\jL$ en tant que $\
 \end{defn}
 
 \begin{prop}
-multiplicativité du degré.
+TODO: multiplicativité du degré.
 \end{prop}
 
 \begin{defn}
@@ -182,13 +193,13 @@ L'ensemble $\K[X]$ des polynômes à coefficients dans $\K$ en l'indéterminée 
 \subsection{Eléments algébriques}
 
 \begin{defn}
-Soient $\jL/\K$ une extension de corps et $P(X) = \displaystyle\sum_{i=0}^{n}a_iX^i$ un polynôme de degré $n$ à coefficients dans $\K$. On considère le morphisme d'évaluation \fonction{ev_\alpha}{\K[X]}{\jL}{P(X)}{P(\alpha)}
-Soit $I(\alpha) :=  ker(ev_\alpha) = \{ P \in \K[X]$ tels que $P(\alpha) = 0\}$; on a deux possibilites:
+Soient $\jL/\K$ une extension de corps et $P(X) = \sum_{i=0}^{n}a_iX^i$ un polynôme de degré $n$ à coefficients dans $\K$. On considère le morphisme d'évaluation \fonction{ev_\alpha}{\K[X]}{\jL}{P(X)}{P(\alpha)}
+Soit $I(\alpha) :=  ker(ev_\alpha) = \{ P \in \K[X]$ tels que $P(\alpha) = 0\}$; on a deux possibilités:
 
 \begin{itemize}
-	\item Soit $I(\alpha) \ne \{ 0 \}$, i.e. $ev_a$ n'est pas injective et donc $\exists P \in \K[X]\backslash\{0\}$ tel que $P(\alpha) = 0$. \newline
+	\item Soit $I(\alpha) \ne \{ 0 \}$, i.e. $ev_a$ n'est pas injective et donc $\exists P \in \K[X] - \{0\}$ tel que $P(\alpha) = 0$. \newline
 Dans ce cas $\alpha$ est dit algébrique sur $\K$.
-	\item Soit $I(\alpha) = \{ 0 \}$ i.e. $ev_a$ est injective et donc $\nexists P \in \K[X]\backslash\{0\}$ tel que $P(\alpha) = 0$. \newline
+	\item Soit $I(\alpha) = \{ 0 \}$ i.e. $ev_a$ est injective et donc $\nexists P \in \K[X] - \{0\}$ tel que $P(\alpha) = 0$. \newline
 Dans ce cas, $\alpha$ est dit transcendant sur $\K$.
 \end{itemize}
 \end{defn}
@@ -196,13 +207,13 @@ Dans ce cas, $\alpha$ est dit transcendant sur $\K$.
 
 \begin{thm}
 Soit $\jL / \K$ une extension de corps et $\alpha$ un élément algébrique sur $\jL$, alors il existe un unique polynôme $P(X)$ unitaire irréductible dans $\K[X]$ vérifiant
-\begin{center} ($Q(X) \in \K[X]\backslash\{0\}$ et $Q(\alpha)=0$) ssi $P(X) \mid Q(X)$\end{center}
+\begin{center} ($Q(X) \in \K[X] - \{0\}$ et $Q(\alpha)=0$) ssi $P(X) \mid Q(X)$\end{center}
 \end{thm}
 
 \begin{proof}
-$\K[X]$ est euclidien, donc en particulier principal. Il s'ensuit qu'il existe $P(X) \in \K[X]\backslash\{0\}$ unitaire tel que $I(a) = (P(X))$, $I(a)$ étant un idéal propre non nul. Par le premier théorème d'isomorphisme, on obtient que $Im(ev_\alpha) \simeq \frac{\K[X]}{(P(X))}$. \newline
+$\K[X]$ est euclidien, donc en particulier principal. Il s'ensuit qu'il existe $P(X) \in \K[X] - \{0\}$ unitaire tel que $I(a) = (P(X))$, $I(a)$ étant un idéal propre non nul. Par le premier théorème d'isomorphisme, on obtient que $Im(ev_\alpha) \simeq \frac{\K[X]}{(P(X))}$. \newline
 Ce dernier étant intègre, on obtient que $P(X)$ est premier donc irréductible dans $\K[X]$ factoriel. \newline
-Il s'ensuit naturellement que $Q(X) \in I(a)\backslash\{0\} = (P(X))\backslash\{0\}$ ssi $P(X) \mid Q(X)$.
+Il s'ensuit naturellement que $Q(X) \in I(a) - \{0\} = (P(X)) - \{0\}$ ssi $P(X) \mid Q(X)$.
 \end{proof}
 
 \begin{prop}[Admise]
@@ -218,7 +229,7 @@ Soit $\alpha \in \Q$, il peut être intéressant de remarquer qu'un polynôme ir
 \end{rem}
 
 \begin{prop}[Critère d'Eiseinstein - Admis]
-Soit $P(X) = \displaystyle \sum_{i=0}^{n}a_iX^i$ un polynôme de $\Z[X]$, supposons de plus qu'il existe $p$ premier tel que $\forall i \in \llbracket 0, n-1 \rrbracket$
+Soit $P(X) = \displaystyle \sum_{i=0}^{n}a_iX^i$ un polynôme de $\Z[X]$. S'il existe $p$ premier tel que $\forall i \in \llbracket 0, n-1 \rrbracket$
 \begin{itemize}
 	\item $p \mid a_i$, 
 	\item $p \nmid a_n$
@@ -228,10 +239,15 @@ alors $P(X)$ est irréductible dans $\Q[X]$.
 \end{prop}
 
 \begin{exm}
-	\begin{itemize} Voyons quelques cas triviaux:
-		\item $i$ est algébrique sur $\Q$, en effet $X^2-1$ est son polynôme minimal sur $Q$.
+Voyons quelques cas triviaux :
+	\begin{itemize}
+		\item $i$ est algébrique sur $\Q$, en effet $X^2-1$ est son polynôme minimal sur $\Q$.
 		\item $\sqrt2$ et $\sqrt3$ sont algébrique sur $\Q$, de polynôme minimaux respectif $X^2 -2$ et $X^2-3$, dont l'irréductibilité découle du critère d'Eisenstein.
-		\item $\alpha = \sqrt2 + \sqrt3$ est également algébrique sur $\Q$. En effet, $\alpha = \sqrt2 + \sqrt3$ ssi $(\alpha-\sqrt2)^2= 3$ ssi $\alpha^2 + 2\alpha\sqrt2 + 2 = 3$ ssi $\alpha^2 - 1 =  -2\alpha\sqrt2$ ssi $\alpha^4 - 2\alpha^2 +1 =  8\alpha^2$ ssi $\alpha^4 - 10\alpha^2 +1 = 0$. $\alpha$ admet donc pour polynôme minimal $X^4 -10X^2 +1$. L'irréductibilité découle de Eisenstein pour $p=2$.	
+		\item $\alpha = \sqrt2 + \sqrt3$ est également algébrique sur $\Q$. En effet,
+\begin{align*}
+ \alpha = \sqrt2 + \sqrt3 &\Leftrightarrow (\alpha-\sqrt2)^2= 3\\ &\Leftrightarrow \alpha^2 + 2\alpha\sqrt2 + 2 = 3\\ &\Leftrightarrow \alpha^2 - 1 =  -2\alpha\sqrt2\\ &\Leftrightarrow \alpha^4 - 2\alpha^2 +1 =  8\alpha^2\\ &\Leftrightarrow \alpha^4 - 10\alpha^2 +1 = 0
+\end{align*}		
+$\alpha$ admet donc pour polynôme minimal $X^4 -10X^2 +1$. L'irréductibilité découle de Eisenstein pour $p=2$.	
 	\end{itemize}
 \end{exm}
 
@@ -289,8 +305,8 @@ b_m & b_{m-1} & \cdots & b_1 & b_0 & 0 & \cdots & 0 \\
 0 & 0 & \cdots & b_m & b_{m-1} & b_{m-2} & \cdots & b_0 \\
    \end{pmatrix} 
 &  \begin{array}{c} 
-      \left. \rule{0pt}{12mm} \right\} \text{m} \\
-      \left. \rule{0pt}{12mm} \right\} \text{n} 
+      \left. \rule{0pt}{12mm} \right\} m \\
+      \left. \rule{0pt}{12mm} \right\} n 
    \end{array} 
 \end{array}$$
 \end{center}
@@ -302,17 +318,17 @@ On appelle résultant de $A$ et $B$ le déterminant de la matrice de Sylvester d
 \end{defn}
 
 \begin{thm}[Admis]
-Soient $A$ et $B \in \K[X]$, alors $Res(A,B) = 0$ ssi $A$ et $B$ ont un facteur commun non constant dans $\K[X]$.
+Soient $A$ et $B \in \K[X]$, alors $Res(A,B) = 0$ si et seulement si $A$ et $B$ ont un facteur commun non constant dans $\K[X]$.
 \end{thm}
 
 \begin{nota}
-On notera $Res_Y(A,B)$ le résultant de deux polynôme en la variable $Y$ à coefficient dans $\K[X]$.
+On notera $Res_Y(A,B)$ le résultant de deux polynômes en la variable $Y$ à coefficient dans $\K[X]$.
 \end{nota}
 
-Nous allons maintenant considérer $\alpha$ et $\beta$ deux éléments de $\jL$ algébriques sur $\K$. On notera respectivement leur polynômes minimaux $A(X)$ et $B(X)$ $\in \K[X]$, avec $deg(A) = n$ et $deg(B) = m$. L'objectif est de constuire un polynôme annulateur (et non forcément minimal !) de $\alpha + \beta$, $\alpha.\beta$ et $\alpha^{-1}$ afin de donner une preuve constructive du \textit{Théorème 2}.
+Nous allons maintenant considérer $\alpha$ et $\beta$ deux éléments de $\jL$ algébriques sur $\K$. On notera respectivement leur polynômes minimaux $A(X)$ et $B(X)$ $\in \K[X]$, avec $deg(A) = n$ et $deg(B) = m$. L'objectif est de construire un polynôme annulateur de $\alpha + \beta$, $\alpha.\beta$ et $\alpha^{-1}$ afin de donner une preuve constructive du \textit{Théorème 2}.
 
 \begin{prop}
-La fermeture algébrique de $\K$ dans $\jL$ est munie d'une structure d'anneau; en effet
+La fermeture algébrique de $\K$ dans $\jL$ est munie d'une structure d'anneau. En effet,
 	\begin{enumerate}[label=\roman*)]
 		\item Le polynôme $S(X) := Res_Y(A(Y),B(X-Y))$ est \textit{un} polynôme annulateur de $\alpha + \beta$.
 		\item Le polynôme $P(X) := Res_Y(A(Y), X^m.B(\frac{X}{Y}))$ est \textit{un} polynôme annulateur de $\alpha.\beta$.
@@ -325,7 +341,7 @@ La fermeture algébrique de $\K$ dans $\jL$ est munie d'une structure d'anneau; 
 		\item De manière similaire, $P(\alpha.\beta) = Res_Y(A(Y), (\alpha.\beta)^m.B(\frac{\alpha.\beta}{Y}))$. Or, $A(\alpha) = 0$ et $(\alpha.\beta)^m.B(\frac{\alpha.\beta}{\alpha}) = (\alpha.\beta)^m.B(\beta) = 0$ Le terme $(\alpha.\beta)^m$ est nécessaire lorsque $\alpha = 0$. La conclusion s'ensuit.
 	\end{enumerate}
 \end{proof}
-Et finalement :
+Il vient alors la proposition suivante,
 \begin{prop}
 La fermeture algébrique de $\K$ dans $\jL$ est munie d'une structure de corps; en effet le polynôme $P(X) := X^n.A(1/X)$ est un polynôme annulateur de $\alpha^{-1}$.
 \end{prop}
@@ -350,27 +366,32 @@ $
 $
 \end{center}
 
-et donc
-
-			\begin{center} $Res_Y((A(Y), B(Y-X))$ \end{center}
+et donc,
 			\begin{align*} 
-&= \begin{vmatrix} 1 & 0 & -2 & 0 \\ 0 & 1 & 0 & -2 \\ 1 & -2X & X^2 - 3 & 0 \\ 0 & 1 & -2X & X^2 -3 \\\end{vmatrix}  \\
-&= Maple ! \\
+Res_Y((A(Y), B(Y-X))&= \begin{vmatrix} 1 & 0 & -2 & 0 \\ 0 & 1 & 0 & -2 \\ 1 & -2X & X^2 - 3 & 0 \\ 0 & 1 & -2X & X^2 -3 \\\end{vmatrix}  \\
 &= X^4 -10X^2 +1 
 			\end{align*} 
-Ce qui correspond au polynôme minimal trouvé lors du précédent exemple. Nous avons ici obtenu un polynôme annulateur qui est \textit{le} polynôme minimal, mais ce ne sera pas toujorus le cas.
+\pagebreak
+
+On peut vérifier ce résultat grâce à l'outil Maple,
+\begin{figure}[h]
+\includegraphics[scale=0.75]{code1.png}
+\caption{Calcul du déterminant}
+\end{figure}
+
+Ce qui correspond au polynôme minimal trouvé lors du précédent exemple. Nous avons ici obtenu un polynôme annulateur qui est \textit{le} polynôme minimal, mais ce ne sera pas  le cas.
 \end{exm}
 
-\subsection{Brève disgression sur les corps finis}
+\subsection{Brève digression sur les corps finis}
 
-On va ici s'interresser au cas particulier des corps finis.
+On va ici s'intéresser au cas particulier des corps finis.
 
 \begin{nota}
 On dénotera par $q := p^n$ la puissance n-ième d'un nombre premier $p$.
 \end{nota}
 
 \begin{prop}
-Pour tout $p$ premier, il existe un corps fini à $p^n$ éléments, unique à isomorphisme près, qui sera noter $\Fq$.
+Pour tout $p$ premier, il existe un corps fini à $p^n$ éléments, unique à isomorphisme près, qui sera noté $\Fq$.
 \end{prop}
 
 Contrairement au cas où le corps plancher est $\Q$, nous disposons d'algorithmes de construction de polynômes minimaux efficace. 
@@ -380,7 +401,7 @@ Soient $P$ un polynôme de degré $n$ à coefficients dans $\Fq$, et $\alpha$ un
 \end{prop}
 
 \begin{defn}
-Soit $\alpha$ un élement algébrique de degré $n$ sur $\Fq$. On appelle conjugués de $\alpha$ sur $\Fqn$ les racines de son polynôme minimal, i.e. les $\alpha^{q^i}$, où $i$ décrit $\{1, ..., n-1\}$.
+Soit $\alpha$ un élément algébrique de degré $n$ sur $\Fq$. On appelle conjugués de $\alpha$ sur $\Fqn$ les racines de son polynôme minimal, i.e. les $\alpha^{q^i}$, où $i$ décrit $\{1, ..., n-1\}$.
 \end{defn}
 
 Il nous est maintenant facile de constuire le polynôme minimal (dans $\Fqn$ !) de $\alpha \in \Fq$.
