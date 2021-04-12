@@ -19,7 +19,8 @@
 \usepackage{xcolor}
 \usepackage{pifont}
 \usepackage{textcomp}
-
+\usepackage[cache=false]{minted}
+\definecolor{LightGray}{gray}{0.95}
 \title{Nombres algébriques et résultant}
 \author{CARVAILLO T.}
 \date{\today}
@@ -111,7 +112,7 @@
 	\begin{minipage}{0.4\textwidth}
 		\begin{flushleft} \large
 			\emph{A l'attention de :}\\
-			PROF DE CF\\
+			NALDI S.\\
 			\phantom{a}\\
 			\phantom{a}\\
 		\end{flushleft}
@@ -139,6 +140,7 @@
 %\pagebreak
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagebreak
 \section*{Introduction}
 \addcontentsline{toc}{part}{Introduction}
 \begin{figure}[h]
@@ -178,7 +180,10 @@ On appelle degré de l'extension $\jL / \K$ la dimension de $\jL$ en tant que $\
 \end{defn}
 
 \begin{prop}
-TODO: multiplicativité du degré.
+Soit $E \subseteq F \subseteq G$ une tour d'extension de corps. On a alors, 
+\begin{center}
+$[G : E] = [G : F] \cdot [F : E]$.
+\end{center}
 \end{prop}
 
 \begin{defn}
@@ -334,13 +339,51 @@ La fermeture algébrique de $\K$ dans $\jL$ est munie d'une structure d'anneau. 
 		\item Le polynôme $P(X) := Res_Y(A(Y), X^m.B(\frac{X}{Y}))$ est \textit{un} polynôme annulateur de $\alpha.\beta$.
 	\end{enumerate}
 \end{prop}
-
 \begin{proof} De simples calculs suffisent, remarquons que
 	\begin{enumerate}[label=\roman*)]
 		\item $S(\alpha + \beta) = Res_Y(A(Y),B(\alpha + \beta - Y))$. Or, $A(\alpha) = 0$ et $B (\alpha-\alpha + \beta) = B(\beta) = 0$. Donc les polynômes $A(Y)$ et $B (\alpha + \beta - Y) \in \K[Y]$ admettent $\alpha$ comme racine commune. De part le théorème précédent, on obtient que $S(\alpha + \beta) = Res_Y(A(Y),B(\alpha + \beta-Y)) = 0$, la conclusion s'ensuit. 
 		\item De manière similaire, $P(\alpha.\beta) = Res_Y(A(Y), (\alpha.\beta)^m.B(\frac{\alpha.\beta}{Y}))$. Or, $A(\alpha) = 0$ et $(\alpha.\beta)^m.B(\frac{\alpha.\beta}{\alpha}) = (\alpha.\beta)^m.B(\beta) = 0$ Le terme $(\alpha.\beta)^m$ est nécessaire lorsque $\alpha = 0$. La conclusion s'ensuit.
 	\end{enumerate}
 \end{proof}
+\begin{minted}
+[
+frame=lines,
+framesep=2mm,
+baselinestretch=1.2,
+bgcolor=LightGray,
+fontsize=\footnotesize,
+linenos
+]
+{python}
+# Fonction qui permet le calcul d'un polynôme annulateur
+# de la somme de nombres algébriques
+
+annulSomme := proc(u, v) 
+local f, g, A, B, syl, res; 
+A := PolynomialTools:-MinimalPolynomial(u, X); 
+B := PolynomialTools:-MinimalPolynomial(v, X); 
+f := Y -> subs(X = Y, A); 
+g := Y -> subs(X = Y, B); 
+syl := SylvesterMatrix(f(Y), g(Y - X), Y); 
+res := Determinant(syl); 
+return res; 
+end proc:
+
+# Fonction qui permet le calcul d'un polynôme annulateur
+# du produit de nombres algébriques
+
+annulProduit := proc(u, v) \\
+local f, g, A, B, res, m; 
+A := PolynomialTools:-MinimalPolynomial(u, X); 
+B := PolynomialTools:-MinimalPolynomial(v, X); 
+f := Y -> subs(X = Y, A); 
+g := Y -> subs(X = Y, B); 
+m := degree(g(Y)); 
+res := resultant(f(Y), X^m*g(Y/X), Y); 
+return res;
+end proc
+\end{minted}
+
 Il vient alors la proposition suivante,
 \begin{prop}
 La fermeture algébrique de $\K$ dans $\jL$ est munie d'une structure de corps; en effet le polynôme $P(X) := X^n.A(1/X)$ est un polynôme annulateur de $\alpha^{-1}$.
@@ -351,8 +394,32 @@ Une fois de plus, un simple calcul suffit: \newline
 $P(\alpha^{-1}) = ((\alpha^{-1})^n).A(\alpha^{-1}) = \alpha^{-n}.\displaystyle\sum_{i=0}^n (\frac{a_i}{\alpha^{-1}})^i = \alpha^{-n}.\sum_{i=0}^n \alpha^i.a_i = \alpha^{-n}.P(\alpha) = 0$
 \end{proof}
 
+\begin{minted}
+[
+frame=lines,
+framesep=2mm,
+baselinestretch=1.2,
+bgcolor=LightGray,
+fontsize=\footnotesize,
+linenos
+]
+{python}
+# Fonction qui permet le calcul d'un polynôme annulateur
+# de l'inverse d'un nombre algébrique
+
+annulInverse := proc(u) 
+local A, n, G, v; 
+v := 1/u; 
+A := PolynomialTools:-MinimalPolynomial(v, X); 
+n := degree(A(X)); 
+G := X -> X^n*A(X); 
+return G(v); 
+end proc
+
+\end{minted}
+
 \begin{exm}
-Nous avons précedemment vu que le polynôme minimal de $\alpha = \sqrt2 + \sqrt3$ est $X^4 -10X^2 +1$. Retrouvons ce résultat grâce à la théorie des résultants. Soient $A$ et $B$ les polynômes minimaux de $\sqrt2$ et $\sqrt3$. Construisons $Syl(A(Y), B(Y-X))$. On a $B(Y-X) = (Y-X)^2 -3 = Y^2 + (-2X)Y + (X^2+3)$ d'où
+Nous avons précédemment vu que le polynôme minimal de $\alpha = \sqrt2 + \sqrt3$ est $X^4 -10X^2 +1$. Retrouvons ce résultat grâce à la théorie des résultants. Soient $A$ et $B$ les polynômes minimaux de $\sqrt2$ et $\sqrt3$. Construisons $Syl(A(Y), B(Y-X))$. On a $B(Y-X) = (Y-X)^2 -3 = Y^2 + (-2X)Y + (X^2+3)$ d'où
 
 \begin{center}
 $Syl(A(Y), B(Y-X)) =$
@@ -368,21 +435,22 @@ $
 
 et donc,
 			\begin{align*} 
-Res_Y((A(Y), B(Y-X))&= \begin{vmatrix} 1 & 0 & -2 & 0 \\ 0 & 1 & 0 & -2 \\ 1 & -2X & X^2 - 3 & 0 \\ 0 & 1 & -2X & X^2 -3 \\\end{vmatrix}  \\
-&= X^4 -10X^2 +1 
+Res_Y((A(Y), B(Y-X))&= \begin{vmatrix} 1 & 0 & -2 & 0 \\ 0 & 1 & 0 & -2 \\ 1 & -2X & X^2 - 3 & 0 \\ 0 & 1 & -2X & X^2 -3 \\\end{vmatrix}
 			\end{align*} 
-\pagebreak
+			
+En utilisant la fonction Maple codée précédemment on obtient alors
 
-On peut vérifier ce résultat grâce à l'outil Maple,
 \begin{figure}[h]
-\includegraphics[scale=0.75]{code1.png}
-\caption{Calcul du déterminant}
+\includegraphics[scale=0.65]{code0.png}
 \end{figure}
+
+D'où $Res_Y((A(Y), B(Y-X)) = X^4 - 10X^2 + 1$.
+\pagebreak
 
 Ce qui correspond au polynôme minimal trouvé lors du précédent exemple. Nous avons ici obtenu un polynôme annulateur qui est \textit{le} polynôme minimal, mais ce ne sera pas  le cas.
 \end{exm}
 
-\subsection{Brève digression sur les corps finis}
+\section{Digression sur les corps finis}
 
 On va ici s'intéresser au cas particulier des corps finis.
 
@@ -407,24 +475,10 @@ Soit $\alpha$ un élément algébrique de degré $n$ sur $\Fq$. On appelle conju
 Il nous est maintenant facile de constuire le polynôme minimal (dans $\Fqn$ !) de $\alpha \in \Fq$.
 
 \begin{algo}[Méthode des conjugués]
-Soit $\alpha \in \Fqn$, on calcule les puissances successive de $\alpha^{q}$ jusqu'à trouver le plus petit entier $m$ tel que $\alpha^{q^m} = \alpha$. On obtient aisni que $\alpha$ est algébrique de degré $m$ et 
+Soit $\alpha \in \Fqn$, on calcule les puissances successive de $\alpha^{q}$ jusqu'à trouver le plus petit entier $m$ tel que $\alpha^{q^m} = \alpha$. On obtient ainsi que $\alpha$ est algébrique de degré $m$ et 
 \begin{center} $Irr(\alpha, \Fq, X) = \displaystyle \prod_{i=0}^m (X-\alpha^{q^i})$. \end{center}
 \end{algo}
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\pagebreak
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Du code}
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\pagebreak
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Des exemples}
 
 
 
