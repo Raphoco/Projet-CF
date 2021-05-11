@@ -22,7 +22,7 @@
 \usepackage[cache=false]{minted}
 \definecolor{LightGray}{gray}{0.95}
 \title{Nombres algébriques et résultant}
-\author{CARVAILLO T.}
+\author{\small PIARD A. JACQUET R. CARVAILLO T.}
 \date{\today}
 
 \makeatletter
@@ -143,13 +143,7 @@
 \pagebreak
 \section*{Introduction}
 \addcontentsline{toc}{part}{Introduction}
-\begin{figure}[h]
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et eleifend erat, eu aliquam elit. Etiam eu viverra est. Proin sed diam vel orci vehicula egestas. In facilisis scelerisque elit. Integer et hendrerit quam, sed pellentesque velit. Nullam pellentesque dui ac luctus rhoncus. Duis fringilla dapibus lorem in hendrerit. Duis efficitur fringilla consequat. Quisque viverra purus ac nibh tristique iaculis. Donec euismod diam sem, quis sagittis lacus volutpat sit amet. Sed nec ultricies eros. Suspendisse ullamcorper est ut sapien ultrices, in sodales massa tempus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dignissim dapibus ultrices.\\
-
-Nunc hendrerit, erat bibendum pharetra pellentesque, risus nulla congue lorem, et lobortis libero magna quis ligula. Praesent et elementum nulla. In hac habitasse platea dictumst. Nulla dignissim nibh sodales nulla tristique condimentum. Nam luctus urna ac ligula scelerisque, non euismod ante pulvinar. Vivamus luctus tellus quis viverra laoreet. Proin vel iaculis libero. Sed tempor massa urna, non rhoncus urna pulvinar nec. Sed ut condimentum sem. Maecenas ac dolor metus. Sed eu luctus arcu.\\
-
-Mauris tempor mauris diam, et porttitor tortor mollis sit amet. Maecenas dui neque, imperdiet egestas posuere at, ornare vitae ligula. Fusce scelerisque dictum consequat. Etiam nec tempus nisi. Morbi scelerisque sapien augue, nec placerat ex mollis id. Donec sit amet nibh ut mi condimentum malesuada. Donec sit amet felis varius, lobortis lacus vitae, bibendum justo. Curabitur lacinia lectus ac lacinia porta. Donec elit ante, pulvinar aliquam dolor ac, ullamcorper suscipit erat. Curabitur dignissim, tortor a mollis cursus, risus sapien aliquam risus, at lobortis urna tellus at lectus. Etiam in luctus nibh. Praesent maximus orci turpis, sed tincidunt mauris aliquam id. Duis eu interdum tellus. Pellentesque nibh tellus, varius eget diam ac, viverra faucibus tellus.
-\end{figure}
+L'étude de ce projet porte sur les nombres algébrique et le résultant. Dans ce projet, nous rappellerons ce que sont les nombres algébriques, résultant, polynômes minimaux, extensions de corps et nous implémenterons des algorithmes permettant le calcul de polynômes minimaux pour la somme, le produit... de nombres algébriques à l'aide de la théorie des résultants. Ces algorithmes seront développés, en \textsf{Maple}, comme suggéré.
 
 \vfill \eject
 
@@ -158,10 +152,8 @@ Mauris tempor mauris diam, et porttitor tortor mollis sit amet. Maecenas dui neq
 \pagebreak 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Un peu de théorie}
 
-
-\subsection{Rappels}
+\section{Préambule}
 
 \begin{defn}
 On appelle corps tout anneau $A$ abélien unitaire dans lequel tout élément non nul est inversible, i.e. $A^{\times} = A  - \{0\}$.
@@ -195,8 +187,8 @@ L'ensemble $\K[X]$ des polynômes à coefficients dans $\K$ en l'indéterminée 
 \end{prop}
 
 
-\subsection{Eléments algébriques}
-
+\section{Éléments algébriques et résultant}
+\subsection{Éléments algébriques}
 \begin{defn}
 Soient $\jL/\K$ une extension de corps et $P(X) = \sum_{i=0}^{n}a_iX^i$ un polynôme de degré $n$ à coefficients dans $\K$. On considère le morphisme d'évaluation \fonction{ev_\alpha}{\K[X]}{\jL}{P(X)}{P(\alpha)}
 Soit $I(\alpha) :=  ker(ev_\alpha) = \{ P \in \K[X]$ tels que $P(\alpha) = 0\}$; on a deux possibilités:
@@ -215,10 +207,12 @@ Soit $\jL / \K$ une extension de corps et $\alpha$ un élément algébrique sur 
 \begin{center} ($Q(X) \in \K[X] - \{0\}$ et $Q(\alpha)=0$) ssi $P(X) \mid Q(X)$\end{center}
 \end{thm}
 
+\enlargethispage{2\baselineskip}
+
 \begin{proof}
 $\K[X]$ est euclidien, donc en particulier principal. Il s'ensuit qu'il existe $P(X) \in \K[X] - \{0\}$ unitaire tel que $I(a) = (P(X))$, $I(a)$ étant un idéal propre non nul. Par le premier théorème d'isomorphisme, on obtient que $Im(ev_\alpha) \simeq \frac{\K[X]}{(P(X))}$. \newline
 Ce dernier étant intègre, on obtient que $P(X)$ est premier donc irréductible dans $\K[X]$ factoriel. \newline
-Il s'ensuit naturellement que $Q(X) \in I(a) - \{0\} = (P(X)) - \{0\}$ ssi $P(X) \mid Q(X)$.
+Il s'ensuit naturellement que $Q(X) \in I(a) - \{0\} = (P(X)) - \{0\}$ si et seulement si $P(X) \mid Q(X)$.
 \end{proof}
 
 \begin{prop}[Admise]
@@ -290,7 +284,7 @@ Donc  $[\K(\alpha, \beta) : \K]$ est fini et l'extension est algébrique. Il s'e
 \end{proof}
 
 
-\subsection{Résultants}
+\subsection{Résultant}
 
 Introduisons maintenant une notion fondamentale, celle de \textit{résultant}, qui va nous permettre de donner une seconde démonstration - cette fois ci constructrice - du dernier théorème.
 
@@ -319,15 +313,15 @@ b_m & b_{m-1} & \cdots & b_1 & b_0 & 0 & \cdots & 0 \\
 
 \begin{defn}
 On appelle résultant de $A$ et $B$ le déterminant de la matrice de Sylvester de $A$ et $B$:
-\begin{center} $Res(A,B) := det(Syl(A,B))$ \end{center}
+\begin{center} $Res(A,B) := det(\textsf{Syl}(A,B))$ \end{center}
 \end{defn}
 
 \begin{thm}[Admis]
-Soient $A$ et $B \in \K[X]$, alors $Res(A,B) = 0$ si et seulement si $A$ et $B$ ont un facteur commun non constant dans $\K[X]$.
+Soient $A$ et $B \in \K[X]$, alors $\textsf{Res}(A,B) = 0$ si et seulement si $A$ et $B$ ont un facteur commun non constant dans $\K[X]$.
 \end{thm}
 
 \begin{nota}
-On notera $Res_Y(A,B)$ le résultant de deux polynômes en la variable $Y$ à coefficient dans $\K[X]$.
+On notera $\textsf{Res}_Y(A,B)$ le résultant de deux polynômes en la variable $Y$ à coefficient dans $\K[X]$.
 \end{nota}
 
 Nous allons maintenant considérer $\alpha$ et $\beta$ deux éléments de $\jL$ algébriques sur $\K$. On notera respectivement leur polynômes minimaux $A(X)$ et $B(X)$ $\in \K[X]$, avec $deg(A) = n$ et $deg(B) = m$. L'objectif est de construire un polynôme annulateur de $\alpha + \beta$, $\alpha.\beta$ et $\alpha^{-1}$ afin de donner une preuve constructive du \textit{Théorème 2}.
@@ -335,14 +329,14 @@ Nous allons maintenant considérer $\alpha$ et $\beta$ deux éléments de $\jL$ 
 \begin{prop}
 La fermeture algébrique de $\K$ dans $\jL$ est munie d'une structure d'anneau. En effet,
 	\begin{enumerate}[label=\roman*)]
-		\item Le polynôme $S(X) := Res_Y(A(Y),B(X-Y))$ est \textit{un} polynôme annulateur de $\alpha + \beta$.
-		\item Le polynôme $P(X) := Res_Y(A(Y), X^m.B(\frac{X}{Y}))$ est \textit{un} polynôme annulateur de $\alpha.\beta$.
+		\item Le polynôme $S(X) := \textsf{Res}_Y(A(Y),B(X-Y))$ est \textit{un} polynôme annulateur de $\alpha + \beta$.
+		\item Le polynôme $P(X) := \textsf{Res}_Y(A(Y), X^m.B(\frac{X}{Y}))$ est \textit{un} polynôme annulateur de $\alpha.\beta$.
 	\end{enumerate}
 \end{prop}
 \begin{proof} De simples calculs suffisent, remarquons que
 	\begin{enumerate}[label=\roman*)]
-		\item $S(\alpha + \beta) = Res_Y(A(Y),B(\alpha + \beta - Y))$. Or, $A(\alpha) = 0$ et $B (\alpha-\alpha + \beta) = B(\beta) = 0$. Donc les polynômes $A(Y)$ et $B (\alpha + \beta - Y) \in \K[Y]$ admettent $\alpha$ comme racine commune. De part le théorème précédent, on obtient que $S(\alpha + \beta) = Res_Y(A(Y),B(\alpha + \beta-Y)) = 0$, la conclusion s'ensuit. 
-		\item De manière similaire, $P(\alpha.\beta) = Res_Y(A(Y), (\alpha.\beta)^m.B(\frac{\alpha.\beta}{Y}))$. Or, $A(\alpha) = 0$ et $(\alpha.\beta)^m.B(\frac{\alpha.\beta}{\alpha}) = (\alpha.\beta)^m.B(\beta) = 0$ Le terme $(\alpha.\beta)^m$ est nécessaire lorsque $\alpha = 0$. La conclusion s'ensuit.
+		\item $S(\alpha + \beta) = \textsf{Res}_Y(A(Y),B(\alpha + \beta - Y))$. Or, $A(\alpha) = 0$ et $B (\alpha-\alpha + \beta) = B(\beta) = 0$. Donc les polynômes $A(Y)$ et $B (\alpha + \beta - Y) \in \K[Y]$ admettent $\alpha$ comme racine commune. De part le théorème précédent, on obtient que $S(\alpha + \beta) = \textsf{Res}_Y(A(Y),B(\alpha + \beta-Y)) = 0$, la conclusion s'ensuit. 
+		\item De manière similaire, $P(\alpha.\beta) = \textsf{Res}_Y(A(Y), (\alpha.\beta)^m.B(\frac{\alpha.\beta}{Y}))$. Or, $A(\alpha) = 0$ et $(\alpha.\beta)^m.B(\frac{\alpha.\beta}{\alpha}) = (\alpha.\beta)^m.B(\beta) = 0$ Le terme $(\alpha.\beta)^m$ est nécessaire lorsque $\alpha = 0$. La conclusion s'ensuit.
 	\end{enumerate}
 \end{proof}
 \begin{minted}
@@ -372,7 +366,7 @@ end proc:
 # Fonction qui permet le calcul d'un polynôme annulateur
 # du produit de nombres algébriques
 
-annulProduit := proc(u, v) \\
+annulProduit := proc(u, v)
 local f, g, A, B, res, m; 
 A := PolynomialTools:-MinimalPolynomial(u, X); 
 B := PolynomialTools:-MinimalPolynomial(v, X); 
@@ -419,10 +413,10 @@ end proc
 \end{minted}
 
 \begin{exm}
-Nous avons précédemment vu que le polynôme minimal de $\alpha = \sqrt2 + \sqrt3$ est $X^4 -10X^2 +1$. Retrouvons ce résultat grâce à la théorie des résultants. Soient $A$ et $B$ les polynômes minimaux de $\sqrt2$ et $\sqrt3$. Construisons $Syl(A(Y), B(Y-X))$. On a $B(Y-X) = (Y-X)^2 -3 = Y^2 + (-2X)Y + (X^2+3)$ d'où
+Nous avons précédemment vu que le polynôme minimal de $\alpha = \sqrt2 + \sqrt3$ est $X^4 -10X^2 +1$. Retrouvons ce résultat grâce à la théorie des résultants. Soient $A$ et $B$ les polynômes minimaux de $\sqrt2$ et $\sqrt3$. Construisons $\textsf{Syl}(A(Y), B(Y-X))$. On a $B(Y-X) = (Y-X)^2 -3 = Y^2 + (-2X)Y + (X^2+3)$ d'où
 
 \begin{center}
-$Syl(A(Y), B(Y-X)) =$
+$\textsf{Syl}(A(Y), B(Y-X)) =$
 $
    \begin{pmatrix} 
 1 & 0 & -2 & 0 \\
@@ -435,16 +429,16 @@ $
 
 et donc,
 			\begin{align*} 
-Res_Y((A(Y), B(Y-X))&= \begin{vmatrix} 1 & 0 & -2 & 0 \\ 0 & 1 & 0 & -2 \\ 1 & -2X & X^2 - 3 & 0 \\ 0 & 1 & -2X & X^2 -3 \\\end{vmatrix}
+\textsf{Res}_Y((A(Y), B(Y-X))&= \begin{vmatrix} 1 & 0 & -2 & 0 \\ 0 & 1 & 0 & -2 \\ 1 & -2X & X^2 - 3 & 0 \\ 0 & 1 & -2X & X^2 -3 \\\end{vmatrix}
 			\end{align*} 
 			
-En utilisant la fonction Maple codée précédemment on obtient alors
+En utilisant la fonction \textsf{Maple} codée précédemment on obtient alors
 
 \begin{figure}[h]
 \includegraphics[scale=0.65]{code0.png}
 \end{figure}
 
-D'où $Res_Y((A(Y), B(Y-X)) = X^4 - 10X^2 + 1$.
+D'où $\textsf{Res}_Y((A(Y), B(Y-X)) = X^4 - 10X^2 + 1$.
 \pagebreak
 
 Ce qui correspond au polynôme minimal trouvé lors du précédent exemple. Nous avons ici obtenu un polynôme annulateur qui est \textit{le} polynôme minimal, mais ce ne sera pas  le cas.
@@ -455,7 +449,7 @@ Ce qui correspond au polynôme minimal trouvé lors du précédent exemple. Nous
 On va ici s'intéresser au cas particulier des corps finis.
 
 \begin{nota}
-On dénotera par $q := p^n$ la puissance n-ième d'un nombre premier $p$.
+On dénotera par $q := p^n$ la puissance $n$-ième d'un nombre premier $p$.
 \end{nota}
 
 \begin{prop}
@@ -485,11 +479,13 @@ Soit $\alpha \in \Fqn$, on calcule les puissances successive de $\alpha^{q}$ jus
 \pagebreak
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\addcontentsline{toc}{part}{Références}
+\addcontentsline{toc}{part}{Références}
 
-%\begin{thebibliography}{9}
-	%\bibitem{these1}
-	%Référence 1
-%\end{thebibliography}
+\begin{thebibliography}{9}
+	\bibitem{these1}
+	Leçon 143 - RIFFAUT Antonin - \url{http://perso.eleves.ens-rennes.fr/~ariffaut/Agregation/memoire_agregation.pdf}
+	\bibitem{these2}
+	Chapitre 12 - "Mathématiques L3 algèbre" - Aviva Szpirglas.
+\end{thebibliography}
 
 \end{document}
